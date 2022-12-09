@@ -1,0 +1,15 @@
+---
+- hosts: webservers 
+  become: ture
+  tasks:
+    - name: Add user aniketr
+      user:
+        name: aniketr
+    - name: Add sudo group rigths for deployment
+      lineinfile:
+        dest: /etc/sudoers
+        regexp: "^aniketr"
+        line: 'aniketr ALL=(ALL) NOPASSWD: ALL'
+        state: present
+        validate: 'visudo -cf %s'
+  
